@@ -1,9 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import InputBar from "./components/InputBar"
 import ListItem from "./components/ListItem"
 
 export default function App() {
-  const [ toDoList, setToDoList ] = useState([])
+  const [ toDoList, setToDoList ] = useState(() => {
+	const saved = localStorage.getItem('todo-list')
+	return saved? JSON.parse(saved) : []
+  })
+
+  useEffect(() => {
+	localStorage.setItem('todo-list', JSON.stringify(toDoList))
+  }, [toDoList])
 
   function handleAddItem(newItem) {
 	if (!newItem.trim()) return
