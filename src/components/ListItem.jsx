@@ -26,11 +26,11 @@ export default function ListItem({list, onDelete, onEdit}) {
 			{list.map((item, index) => (
 			<li className='flex gap-2 items-center' key={index}>
 				{editingIndex === index ? (
-					<>
+					<form onSubmit={(e) => {e.preventDefault();handleSave()}} className='flex gap-2 items-center w-full'>
 						<input ref={inputRef} className='input input-bordered flex-1' type='text' value={editValue} onChange={(e) =>setEditValue(e.target.value)}/>
-						<button onClick={handleSave} className='flex-none btn btn-success'>儲存</button>
-						<button onClick={() => setEditingIndex(null)}className='flex-none btn btn-warning '>取消</button>
-					</>
+						<button type="submit" className='flex-none btn btn-success'>儲存</button>
+						<button type="button" onClick={() => setEditingIndex(null)}className='flex-none btn btn-warning '>取消</button>
+					</form>
 				) : (
 					<>
 						<p className='flex-1 p-2 bg-amber-50'>{item}</p>
